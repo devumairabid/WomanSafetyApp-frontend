@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "581126688450",
+    "project_id": "imagestorage-10ab7",
+    "storage_bucket": "imagestorage-10ab7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581126688450:android:bb4f9739c67e1426edf55b",
+        "android_client_info": {
+          "package_name": "com.womansafety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581126688450-1vg0svfr9bvrqafcgq6kri5nus03voi9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3r_GBECBF5HUU-A8cZsmwwTU-S9gGylM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581126688450-1vg0svfr9bvrqafcgq6kri5nus03voi9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

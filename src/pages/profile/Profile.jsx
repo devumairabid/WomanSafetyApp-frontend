@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 
 import {  launchImageLibrary } from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
@@ -90,9 +90,9 @@ const Profile = (props) => {
             <View style={{ flex: 1 }}>
                 <Text
                     style={{
-                        marginTop: 40,
+                        marginTop: pixelSizeVertical(40),
                         fontFamily: 'Nunito-SemiBold',
-                        fontSize: 30,
+                        fontSize: fontPixel(30),
                         textAlign: 'center',
                         color: '#372329',
                     }}>
@@ -100,10 +100,10 @@ const Profile = (props) => {
                 </Text>
 
 
-                <Image source={{ uri:  imagePath || url }} style={{ width: 180, height: 180, borderRadius: 180, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center', marginTop: 30 }}   />
+                <Image source={{ uri:  imagePath || url }} style={{ width: widthPixel(180), height: heightPixel(180), borderRadius: 180, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center', marginTop: pixelSizeVertical(30) }}   />
 
                 <Pressable onPress={handleImageUpload}>
-                    <Image source={require('../../assets/images/editImage.png')} style={{ width: 40, height: 40, display: 'flex', flexDirection: 'row', alignSelf: 'flex-end', marginRight: '32%', marginTop: -20 }} />
+                    <Image source={require('../../assets/images/editImage.png')} style={{ width: widthPixel(40), height: heightPixel(40), display: 'flex', flexDirection: 'row', alignSelf: 'flex-end', marginRight: '32%', marginTop: pixelSizeVertical(-20) }} />
 
                 </Pressable>
 
@@ -112,22 +112,22 @@ const Profile = (props) => {
             </View>
             <View style={{ flex: 0.8, gap: 15 }}>
                 <View>
-                    <Text style={{ color: '#372329', fontSize: 18, fontFamily: 'Nunito-Bold', marginHorizontal: 28 }}>Name</Text>
+                    <Text style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Bold', marginHorizontal: pixelSizeHorizontal(20) }}>Name</Text>
                     <View style={styles.box}>
-                        <Text style={{ alignSelf: 'center', color: '#372329', fontSize: 20, fontFamily: 'Nunito-SemiBold', textAlign: 'center', textAlignVertical: 'center', marginTop: 10 }} >{name}</Text>
+                        <Text style={{ alignSelf: 'center', color: '#372329', fontSize: fontPixel(20), fontFamily: 'Nunito-SemiBold', textAlign: 'center', textAlignVertical: 'center', marginTop: pixelSizeVertical(10) }} >{name}</Text>
 
                     </View>
                 </View>
                 <View>
-                    <Text style={{ color: '#372329', fontSize: 18, fontFamily: 'Nunito-Bold', marginHorizontal: 28 }}>Email</Text>
+                    <Text style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Bold', marginHorizontal: pixelSizeHorizontal(28) }}>Email</Text>
                     <View style={styles.box}>
-                        <Text style={{ alignSelf: 'center', color: '#372329', fontSize: 20, fontFamily: 'Nunito-SemiBold', marginTop: 10 }} >{email}</Text>
+                        <Text style={{ alignSelf: 'center', color: '#372329', fontSize: fontPixel(20), fontFamily: 'Nunito-SemiBold', marginTop: pixelSizeVertical(10) }} >{email}</Text>
 
                     </View>
                 </View>
             </View>
-            <Pressable onPress={removeValue} style={{ width: 120, height: 43, backgroundColor: '#FF3974', borderRadius: 7, display: 'flex', justifyContent: 'center', alignSelf: 'flex-end', alignContent: 'center', alignItems: 'center', marginRight: 28, marginBottom: 28 }}>
-                <Text style={{ color: '#FFECD0', fontSize: 20, fontFamily: 'Nunito-Bold', }}>LogOut</Text>
+            <Pressable onPress={removeValue} style={{ width:widthPixel(120), height: heightPixel(43), backgroundColor: '#FF3974', borderRadius: 7, display: 'flex', justifyContent: 'center', alignSelf: 'flex-end', alignContent: 'center', alignItems: 'center', marginRight: pixelSizeHorizontal(28), marginBottom: pixelSizeVertical(28) }}>
+                <Text style={{ color: '#FFECD0', fontSize: fontPixel(20), fontFamily: 'Nunito-Bold', }}>LogOut</Text>
             </Pressable>
 
 
@@ -143,7 +143,7 @@ export default Profile;
 
 const styles = StyleSheet.create({
     box: {
-        height: 80, marginHorizontal: 28, borderRadius: 15,
+        height: heightPixel(80), marginHorizontal: pixelSizeHorizontal(28), borderRadius: 15,
         justifyContent: 'center',
         alignContent: 'center',
         shadowColor: "#00000040",
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
 // const createUser = async () => {
 //         try {
 //             const response = await axios.post(
-//                 'womansafetyapp-production.up.railway.app/auth/image',
+//                 'https://womansafetyapp-production.up.railway.app/auth/image',
 //                 { image: url },
 //             );
 

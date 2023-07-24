@@ -4,7 +4,7 @@
 
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'womansafetyapp-production.up.railway.app'
+const SOCKET_URL = 'https://womansafetyapp-production.up.railway.app'
 
 class WSService {
 

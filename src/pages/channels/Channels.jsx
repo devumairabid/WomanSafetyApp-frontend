@@ -2,12 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ChannelList from '../../components/channelList/ChannelList'
 import { useNavigation } from '@react-navigation/native'
+import { fontPixel, pixelSizeVertical, } from '../../responsiveness/Responsiveness';
 const Channels = (props) => {
     const navigation = useNavigation()
     return (
         <View style={{ flex: 1, backgroundColor: '#FFECD0' }}>
-            <View style={{ flex: 0.25, marginTop: 27 }}>
-                <Text style={{ color: '#372329', fontSize: 30, fontFamily: 'Nunito-SemiBold', textAlign: 'center' }}>Channels</Text>
+            <View style={{ flex: 0.25, marginTop: pixelSizeVertical(35) }}>
+                <Text style={{ color: '#372329', fontSize: fontPixel(30), fontFamily: 'Nunito-SemiBold', textAlign: 'center' }}>Channels</Text>
             </View>
             <View style={{ flex: 1, gap: 20, alignItems: 'center' }}>
                 <ChannelList Txt='Women at Work 💼' Txet='56/3429 online' onPress={() => navigation.navigate('ChatInWork')} />

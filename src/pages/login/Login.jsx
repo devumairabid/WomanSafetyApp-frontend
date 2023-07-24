@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-
+import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
     const createUser = async () => {
         if (validate()) {
             try {
-                const response = await axios.post('womansafetyapp-production.up.railway.app/auth/login', values);
+                const response = await axios.post('https://womansafetyapp-production.up.railway.app/auth/login', values);
 
                 console.log(response.data, 'jghjghjgh')
                 setValues({
@@ -69,25 +69,25 @@ const Login = ({ navigation }) => {
     return (
         <>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={'dark-content'} />
-            <View style={{ flex: 1, backgroundColor: '#FF3974' }}>
+            <ScrollView style={{ flex: 1, backgroundColor: '#FF3974' }}>
                 <ScrollView style={{ flex: 0.8 }} showsVerticalScrollIndicator={false}>
 
                     <Image source={require('../../assets/images/curve.png')} />
                 </ScrollView>
-                <View style={{ flex: 1.1, marginLeft: 23, marginRight: 30, }}>
-                    <Text style={{ fontSize: 36, fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Login</Text>
-                    <View style={{ marginBottom: 20 }} showsHorizontalScrollIndicator={false}>
+                <View style={{ flex: 1.1, marginLeft: pixelSizeHorizontal(23), marginRight: pixelSizeHorizontal(30), }}>
+                    <Text style={{ fontSize: fontPixel(36), fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Login</Text>
+                    <View style={{ marginBottom: pixelSizeVertical(20) }} showsHorizontalScrollIndicator={false}>
 
-                        <View style={{ marginLeft: 8, gap: 7, marginTop: 30 }}>
+                        <View style={{ marginLeft: pixelSizeHorizontal(7), gap: 7, marginTop: pixelSizeVertical(30) }}>
                             <Text style={{ color: '#FFECD0' }}>Email</Text>
                             <TextInput keyboardType='email-address' color='#FFECD0' value={values.email}
                                 onChangeText={(event) => setValues((prev) => ({ ...prev, email: event }))} style={{
                                     borderWidth: 1, borderRadius: 10,
-                                    borderColor: '#FFECD0', height: 40, width: 309
+                                    borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309)
                                 }} />
                             {errors.email && <Text>{errors.email}</Text>}
                         </View>
-                        <View style={{ marginLeft: 8, gap: 7, marginTop: 20 }}>
+                        <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
                             <Text style={{ color: '#FFECD0' }}>Password</Text>
                             <View style={{ position: 'relative' }}>
                                 <TextInput
@@ -96,49 +96,49 @@ const Login = ({ navigation }) => {
                                     value={values.password}
                                     onChangeText={(event) => setValues((prev) => ({ ...prev, password: event }))}
 
-                                    style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: 40, width: 309 }}
+                                    style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309) }}
                                 />
                                 {errors.password && <Text>{errors.password}</Text>}
-                                <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: 35, top: 10 }}>
+                                <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: pixelSizeHorizontal(20), top: pixelSizeVertical(8) }}>
                                     <Icon name={showPassword ? 'eye' : 'eye-off'} size={25} color="#FFECD0" />
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                    <View style={{ display: 'flex', flexDirection: 'row-reverse', marginTop: 10, }}>
-                        <Text style={{ color: '#FFECD0', fontSize: 14, fontFamily: 'Nunito-Bold', }}>Forgot Password?</Text>
+                    <View style={{ display: 'flex', flexDirection: 'row-reverse', marginTop: pixelSizeVertical(10), }}>
+                        <Text style={{ color: '#FFECD0', fontSize: fontPixel(14), fontFamily: 'Nunito-Bold', }}>Forgot Password?</Text>
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 3, marginTop: 5 }}>
 
                         <View >
-                            <Image source={require('../../assets/images/google.png')} style={{ width: 55, height: 55 }} />
+                            <Image source={require('../../assets/images/google.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                         </View>
                         <View>
-                            <Image source={require('../../assets/images/fb.png')} style={{ width: 55, height: 55 }} />
+                            <Image source={require('../../assets/images/fb.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                         </View>
 
                         <View>
-                            <Image source={require('../../assets/images/apple.png')} style={{ width: 55, height: 55 }} />
+                            <Image source={require('../../assets/images/apple.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                         </View>
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 8 }}>
+                        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: pixelSizeHorizontal(8) }}>
 
-                            <Text style={{ fontFamily: 'Nunito-Normal', fontSize: 16, color: '#FFECD0', textAlignVertical: 'bottom' }}>
+                            <Text style={{ fontFamily: 'Nunito-Normal', fontSize: fontPixel(16), color: '#FFECD0', textAlignVertical: 'bottom' }}>
 
                                 New Here?  </Text>
                             <TouchableOpacity onPress={() => navigation.navigate('signUp')} style={{ display: 'flex', flexDirection: 'column-reverse' }} >
-                                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 16, color: '#FFECD0', textAlign: 'center', }}>Register</Text>
+                                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: fontPixel(16), color: '#FFECD0', textAlign: 'center', }}>Register</Text>
                             </TouchableOpacity>
 
                         </View>
-                        <TouchableOpacity onPress={() => createUser()} style={[{ width: 144, height: 60, backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
-                            <Text style={{ color: '#372329', fontSize: 24, textAlign: 'center', }}>Login</Text>
+                        <TouchableOpacity onPress={() => createUser()} style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
+                            <Text style={{ color: '#372329', fontSize: fontPixel(24), textAlign: 'center', }}>Login</Text>
                         </TouchableOpacity>
                     </View>
 
                 </View>
-            </View>
+            </ScrollView>
         </>
 
     )

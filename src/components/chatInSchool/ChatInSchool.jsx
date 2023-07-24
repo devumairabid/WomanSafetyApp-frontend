@@ -2,6 +2,7 @@ import { Image, StyleSheet, TextInput, View, Text, KeyboardAvoidingView, Pressab
 import React, { useState, useEffect } from 'react'
 import socketServices from '../socketIo/SocketIo'
 import { useNavigation } from '@react-navigation/native'
+import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 const ChatInSchool = () => {
     const navigation = useNavigation()
     const [message, setMessage] = useState('')
@@ -34,23 +35,24 @@ const ChatInSchool = () => {
     }
 
     return (
+
         <KeyboardAvoidingView style={{ flex: 1 }}>
-            <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: 30, }}>
+            <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: pixelSizeVertical(30), }}>
 
 
                 <View >
 
-                    <Pressable onPress={() => navigation.navigate('TabNavigation')} style={{ marginLeft: 20 }}>
+                    <Pressable onPress={() => navigation.navigate('TabNavigation')} style={{ marginLeft: pixelSizeHorizontal(20) }}>
 
-                        <Image source={require('../../assets/images/leftArrow.png')} style={{ width: 30, height: 30, top: 30 }} />
-                        <Text style={{ fontSize: 25, fontFamily: 'Nunito-Normal', color: '#372329', textAlign: 'center', }}>School Girls 🏫</Text>
+                        <Image source={require('../../assets/images/leftArrow.png')} style={{ width: widthPixel(30), height: heightPixel(30), top: pixelSizeVertical(30) }} />
+                        <Text style={{ fontSize: fontPixel(25), fontFamily: 'Nunito-Normal', color: '#372329', textAlign: 'center', }}>School Girls 🏫</Text>
                     </Pressable>
                 </View>
 
 
 
             </View>
-            <View style={{ flex: 0.1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute', bottom: 0 }}>
+            <View style={{ flex: 0.1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute', bottom: pixelSizeVertical(15) }}>
 
                 <TextInput
                     placeholder='Enter Message' style={{ width: '80%', borderWidth: 1, borderRadius: 10 }}
@@ -59,11 +61,11 @@ const ChatInSchool = () => {
 
                 <TouchableOpacity onPress={sendMessage} style={{ borderWidth: 1, justifyContent: 'center', borderRadius: 10, paddingHorizontal: 2, backgroundColor: '#FF3974' }}>
 
-                    <Text style={{ color: '#FFECD0', fontSize: 20, fontFamily: 'Nunito-Bold', }}>Send</Text>
+                    <Text style={{ color: '#FFECD0', fontSize: fontPixel(20), fontFamily: 'Nunito-Bold', }}>Send</Text>
                 </TouchableOpacity>
 
             </View>
-            <View style={{ marginTop: 25, paddingHorizontal: 20 }}>
+            <View style={{ marginTop: pixelSizeVertical(25), paddingHorizontal: pixelSizeHorizontal(20) }}>
 
                 {
                     data.map((value, index) => {
@@ -71,7 +73,7 @@ const ChatInSchool = () => {
                         return (
 
 
-                            <Text key={index} style={{ color: '#372329', fontSize: 25, fontFamily: 'Nunito-SemiBold' }}>{value}</Text>
+                            <Text key={index} style={{ color: '#372329', fontSize: fontPixel(25), fontFamily: 'Nunito-SemiBold' }}>{value}</Text>
 
                         )
                     })

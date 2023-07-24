@@ -2,17 +2,17 @@ import { StyleSheet, Text, View, } from 'react-native'
 import React from 'react'
 import LocationList from '../../components/locationList/LocationList'
 import { useNavigation } from '@react-navigation/native'
-
+import { fontPixel, pixelSizeVertical, } from '../../responsiveness/Responsiveness';
 const List = (props) => {
     const navigation = useNavigation()
     return (
         <View style={{ flex: 1, backgroundColor: '#FFECD0' }}>
             <View style={{ flex: 0.3 }}>
 
-                <Text style={{ marginTop: 35, fontFamily: 'Nunito-SemiBold', fontSize: 35, textAlign: 'center', color: '#372329' }}>Xplafés Around</Text>
-                <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: 35, textAlign: 'center', color: '#372329' }}>You</Text>
+                <Text style={{ marginTop: pixelSizeVertical(35), fontFamily: 'Nunito-SemiBold', fontSize: fontPixel(35), textAlign: 'center', color: '#372329' }}>Xplafés Around</Text>
+                <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: fontPixel(35), textAlign: 'center', color: '#372329' }}>You</Text>
             </View>
-            <View style={{ flex: 1, gap: 15, marginBottom: 20 }}>
+            <View style={{ flex: 1, gap: 15, marginBottom: pixelSizeVertical(20) }}>
                 <LocationList text='Jennifer Lydia' myText='Wild West Street, New York' onPress={() => navigation.navigate('FirstList', {
                     myText: 'Wild West Street, New York'
                 })} />

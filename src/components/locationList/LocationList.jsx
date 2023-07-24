@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+import { fontPixel, heightPixel, pixelSizeHorizontal, widthPixel } from '../../responsiveness/Responsiveness';
 const LocationList = (props) => {
     const navigation = useNavigation()
 
@@ -12,16 +12,16 @@ const LocationList = (props) => {
         }}>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
 
-                <Image source={require('../../assets/images/location.png')} style={{ width: 20, height: 25 }} />
+                <Image source={require('../../assets/images/location.png')} style={{ width: widthPixel(20), height: heightPixel(25) }} />
                 <View style={{ marginVertical: 10 }}>
 
-                    <Text style={{ color: '#FF3974', fontSize: 24, fontFamily: 'Nunito-SemiBold', }}>{props.text}</Text>
-                    <Text style={{ color: '#372329', fontSize: 14, fontFamily: 'Nunito-Regular' }}>{props.myText}</Text>
+                    <Text style={{ color: '#FF3974', fontSize: fontPixel(24), fontFamily: 'Nunito-SemiBold', }}>{props.text}</Text>
+                    <Text style={{ color: '#372329', fontSize: fontPixel(14), fontFamily: 'Nunito-Regular' }}>{props.myText}</Text>
                 </View>
             </View>
-            <TouchableOpacity style={{ width: 40 }} onPress={props.onPress} >
+            <TouchableOpacity style={{ width: widthPixel(40) }} onPress={props.onPress} >
 
-                <Image source={require('../../assets/images/nextIcon.png')} style={{ width: 12, height: 20, marginLeft: 20 }} />
+                <Image source={require('../../assets/images/nextIcon.png')} style={{ width: widthPixel(12), height: heightPixel(20), marginLeft: pixelSizeHorizontal(20) }} />
             </TouchableOpacity>
         </View>
     )

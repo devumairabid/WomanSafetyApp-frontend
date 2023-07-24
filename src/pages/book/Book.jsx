@@ -2,17 +2,17 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import BookList from '../../components/bookList/BookList'
 import { useNavigation } from '@react-navigation/native'
-
+import { fontPixel, heightPixel, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 const List = (props) => {
     const navigation = useNavigation()
     return (
         <View style={{ flex: 1, backgroundColor: '#FFECD0' }}>
             <View style={{ flex: 0.3 }}>
 
-                <Text style={{ marginTop: 35, fontFamily: 'Nunito-SemiBold', fontSize: 35, textAlign: 'center', color: '#372329' }}>Bible of Safety</Text>
-                <Image source={require('../../assets/images/safetyImage.png')} style={{ width: 100, height: 100, alignItems: 'center', alignSelf: 'center' }} />
+                <Text style={{ marginTop: pixelSizeVertical(35), fontFamily: 'Nunito-SemiBold', fontSize: fontPixel(35), textAlign: 'center', color: '#372329' }}>Bible of Safety</Text>
+                <Image source={require('../../assets/images/safetyImage.png')} style={{ width: widthPixel(100), height: heightPixel(100), alignItems: 'center', alignSelf: 'center' }} />
             </View>
-            <View style={{ flex: 0.7, gap: 15, marginBottom: 20 }}>
+            <View style={{ flex: 0.7, gap: 15, marginBottom: pixelSizeVertical(20) }}>
                 <BookList text='Safety at Work' onPress={() => navigation.navigate('SafetyAtWork')} />
                 <BookList text='Safety at Home' onPress={() => navigation.navigate('SafetyAtHome')} />
                 <BookList text='Safety at University' onPress={() => navigation.navigate('SafetyAtUniversity')} />

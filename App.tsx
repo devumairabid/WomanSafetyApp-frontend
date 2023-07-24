@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, } from 'react-native'
+
 
 import React, { useState, } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import Profile from './src/pages/profile/Profile';
 import Book from './src/pages/book/Book';
 import Home from './src/pages/home/Home';
 import Channels from './src/pages/channels/Channels';
-import TabNavigation from './src/components/tabNavition/TabNavigation';
+
 import BookImage from './src/assets/svgImages/BookImage';
 import ListImage from './src/assets/svgImages/ListImage';
 import ChannelImage from './src/assets/svgImages/ChannelImage';

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 const BookList = (props) => {
     const navigation = useNavigation()
 
@@ -13,15 +13,15 @@ const BookList = (props) => {
             <View onPress={props.onPress} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
 
 
-                <View style={{ marginVertical: 10 }}>
+                <View style={{ marginVertical: pixelSizeVertical(10) }}>
 
-                    <Text style={{ color: '#FFECD0', fontSize: 24, fontFamily: 'Nunito-SemiBold', }}>{props.text}</Text>
+                    <Text style={{ color: '#FFECD0', fontSize: fontPixel(24), fontFamily: 'Nunito-SemiBold', }}>{props.text}</Text>
 
                 </View>
             </View>
             <View >
 
-                <Image source={require('../../assets/images/Icon2.png')} style={{ width: 15, height: 16, marginLeft: 20, }} />
+                <Image source={require('../../assets/images/Icon2.png')} style={{ width: widthPixel(15), height: heightPixel(16), marginLeft: pixelSizeHorizontal(20), }} />
             </View>
         </Pressable>
     )

@@ -17,7 +17,7 @@ const ChatInSchool = () => {
 
     useEffect(() => {
         socketServices.on('receive_message', (msg) => {
-            console.log('message received in reactnative app', msg);
+            ('message received in reactnative app', msg);
             let cloneArray = [...data]
             setData(cloneArray.concat(msg))
 

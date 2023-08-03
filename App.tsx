@@ -1,6 +1,4 @@
 import { StyleSheet, } from 'react-native'
-
-
 import React, { useState, } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,7 +10,6 @@ import Profile from './src/pages/profile/Profile';
 import Book from './src/pages/book/Book';
 import Home from './src/pages/home/Home';
 import Channels from './src/pages/channels/Channels';
-
 import BookImage from './src/assets/svgImages/BookImage';
 import ListImage from './src/assets/svgImages/ListImage';
 import ChannelImage from './src/assets/svgImages/ChannelImage';
@@ -23,7 +20,6 @@ import SafetyAtHome from './src/components/safetyAtHome/SafetyAtHome';
 import SafetyAtUniversity from './src/components/safetyAtUniversity/SafetyAtUniversity';
 import OnlineSafety from './src/components/onlineSafety/OnlineSafety';
 import SafetyInStreet from './src/components/safetyInStreet/SafetyInStreet';
-import ChannelList from './src/components/channelList/ChannelList';
 import Toast from 'react-native-toast-message';
 import ChatInWork from './src/components/chatInWork/ChatInWork';
 import ChatInSchool from './src/components/chatInSchool/ChatInSchool';
@@ -34,28 +30,10 @@ import ThirdList from './src/components/detailOfList/thirdList/ThirdList';
 import ForthList from './src/components/detailOfList/forthList/ForthList';
 import FifthList from './src/components/detailOfList/fifthList/FifthList';
 import SixthList from './src/components/detailOfList/sixthList/SixthList';
-
-
-
-
-
 const App = () => {
-  // const navigation = useNavigation()
-
   const [isPressed, setIsPressed] = useState(false);
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
-  // const navigationRef = useRef(null);
-  // const navigateToTab = (tabName: any) => {
-  //   navigationRef.current?.navigate(tabName);
-  // };
-
-  // useEffect(() => {
-  //   // Expose the navigation object to the outside world
-  //   if (navigationRef.current) {
-  //     navigationRef.current.navigateTab = navigateToTab;
-  //   }
-  // }, []);
   const TabNavigate = () => (
     <Tab.Navigator screenOptions={{
       headerShown: false, tabBarActiveTintColor: '#FF3974',

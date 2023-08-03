@@ -1,4 +1,4 @@
-import { Image, StatusBar, StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native'
+import { Image, StatusBar, StyleSheet, ScrollView, Text, View, TextInput, TouchableOpacity, } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
@@ -6,11 +6,12 @@ import axios from 'axios';
 import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ({ navigation }) => {
+const Login = () => {
     const [errors, setErrors] = useState({})
-    const navigate = useNavigation()
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState();
+    const [showPassword, setShowPassword] = useState(false)
+    const navigation = useNavigation()
+
+
     const [values, setValues] = useState({
         email: '',
         password: ''
@@ -44,7 +45,7 @@ const Login = ({ navigation }) => {
             try {
                 const response = await axios.post('https://womansafetyapp-production.up.railway.app/auth/login', values);
 
-                console.log(response.data, 'jghjghjgh')
+
                 setValues({
 
                     email: "",
@@ -53,93 +54,92 @@ const Login = ({ navigation }) => {
                 await AsyncStorage.setItem('token', response.data.token);
                 await AsyncStorage.setItem('name', response.data.fullName);
                 await AsyncStorage.setItem('email', response.data.email);
-                console.log('token login successfully');
+
                 navigation.navigate('TabNavigation')
 
             } catch (error) {
-                console.error(error.message);
+                (error, error.message);
             }
 
         }
     }
-    const [showPassword, setShowPassword] = useState(false)
     const passwordHandler = () => {
         setShowPassword(!showPassword)
     }
     return (
-        <>
+
+        <View style={{ flex: 1, backgroundColor: '#FF3974' }}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={'dark-content'} />
-            <ScrollView style={{ flex: 1, backgroundColor: '#FF3974' }}>
-                <ScrollView style={{ flex: 0.8 }} showsVerticalScrollIndicator={false}>
+            <View style={{ flex: 0.8, }}>
+                <Image source={require('../../assets/images/curve.png')} style={{ width: '100%', resizeMode: 'stretch', height: '100%' }} />
+            </View>
+            <ScrollView style={{ flex: 1.7, marginLeft: pixelSizeHorizontal(23), marginRight: pixelSizeHorizontal(30), }} showsVerticalScrollIndicator={false}>
+                <Text style={{ fontSize: fontPixel(36), fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Login</Text>
+                <View style={{ marginBottom: pixelSizeVertical(20) }} showsHorizontalScrollIndicator={false}>
 
-                    <Image source={require('../../assets/images/curve.png')} />
-                </ScrollView>
-                <View style={{ flex: 1.1, marginLeft: pixelSizeHorizontal(23), marginRight: pixelSizeHorizontal(30), }}>
-                    <Text style={{ fontSize: fontPixel(36), fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Login</Text>
-                    <View style={{ marginBottom: pixelSizeVertical(20) }} showsHorizontalScrollIndicator={false}>
-
-                        <View style={{ marginLeft: pixelSizeHorizontal(7), gap: 7, marginTop: pixelSizeVertical(30) }}>
-                            <Text style={{ color: '#FFECD0' }}>Email</Text>
-                            <TextInput keyboardType='email-address' color='#FFECD0' value={values.email}
-                                onChangeText={(event) => setValues((prev) => ({ ...prev, email: event }))} style={{
-                                    borderWidth: 1, borderRadius: 10,
-                                    borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309)
-                                }} />
-                            {errors.email && <Text>{errors.email}</Text>}
-                        </View>
-                        <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
-                            <Text style={{ color: '#FFECD0' }}>Password</Text>
-                            <View style={{ position: 'relative' }}>
-                                <TextInput
-                                    secureTextEntry={!showPassword}
-                                    color="#FFECD0"
-                                    value={values.password}
-                                    onChangeText={(event) => setValues((prev) => ({ ...prev, password: event }))}
-
-                                    style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309) }}
-                                />
-                                {errors.password && <Text>{errors.password}</Text>}
-                                <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: pixelSizeHorizontal(20), top: pixelSizeVertical(8) }}>
-                                    <Icon name={showPassword ? 'eye' : 'eye-off'} size={25} color="#FFECD0" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                    <View style={{ marginLeft: pixelSizeHorizontal(7), gap: 7, marginTop: pixelSizeVertical(30) }}>
+                        <Text style={{ color: '#FFECD0' }}>Email</Text>
+                        <TextInput keyboardType='email-address' color='#FFECD0' value={values.email}
+                            onChangeText={(event) => setValues((prev) => ({ ...prev, email: event }))} style={{
+                                borderWidth: 1, borderRadius: 10,
+                                borderColor: '#FFECD0', height: heightPixel(45), width: widthPixel(309)
+                            }} />
+                        {errors.email && <Text>{errors.email}</Text>}
                     </View>
-                    <View style={{ display: 'flex', flexDirection: 'row-reverse', marginTop: pixelSizeVertical(10), }}>
-                        <Text style={{ color: '#FFECD0', fontSize: fontPixel(14), fontFamily: 'Nunito-Bold', }}>Forgot Password?</Text>
-                    </View>
-                    <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 3, marginTop: 5 }}>
+                    <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
+                        <Text style={{ color: '#FFECD0' }}>Password</Text>
+                        <View style={{ position: 'relative' }}>
+                            <TextInput
+                                secureTextEntry={!showPassword}
+                                color="#FFECD0"
+                                value={values.password}
+                                onChangeText={(event) => setValues((prev) => ({ ...prev, password: event }))}
 
-                        <View >
-                            <Image source={require('../../assets/images/google.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-                        <View>
-                            <Image source={require('../../assets/images/fb.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-
-                        <View>
-                            <Image source={require('../../assets/images/apple.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-                    </View>
-                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: pixelSizeHorizontal(8) }}>
-
-                            <Text style={{ fontFamily: 'Nunito-Normal', fontSize: fontPixel(16), color: '#FFECD0', textAlignVertical: 'bottom' }}>
-
-                                New Here?  </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('signUp')} style={{ display: 'flex', flexDirection: 'column-reverse' }} >
-                                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: fontPixel(16), color: '#FFECD0', textAlign: 'center', }}>Register</Text>
+                                style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(45), width: widthPixel(309) }}
+                            />
+                            {errors.password && <Text>{errors.password}</Text>}
+                            <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: pixelSizeHorizontal(20), top: pixelSizeVertical(4) }}>
+                                <Icon name={showPassword ? 'eye' : 'eye-off'} size={25} color="#FFECD0" />
                             </TouchableOpacity>
-
                         </View>
-                        <TouchableOpacity onPress={() => createUser()} style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
-                            <Text style={{ color: '#372329', fontSize: fontPixel(24), textAlign: 'center', }}>Login</Text>
-                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row-reverse', marginTop: pixelSizeVertical(10), }}>
+                    <Text style={{ color: '#FFECD0', fontSize: fontPixel(14), fontFamily: 'Nunito-Bold', }}>Forgot Password?</Text>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 3, marginTop: 5 }}>
+
+                    <View >
+                        <Image source={require('../../assets/images/google.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
+                    </View>
+                    <View>
+                        <Image source={require('../../assets/images/fb.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                     </View>
 
+                    <View>
+                        <Image source={require('../../assets/images/apple.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
+                    </View>
                 </View>
             </ScrollView>
-        </>
+
+            <View style={{ flex: 0.3, display: 'flex', marginLeft: pixelSizeHorizontal(23), justifyContent: 'center', marginRight: pixelSizeHorizontal(30), flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                <View style={{ display: 'flex', flexDirection: 'row', marginLeft: pixelSizeHorizontal(8), marginTop: pixelSizeVertical(18) }}>
+                    <Text style={{ fontFamily: 'Nunito-Normal', fontSize: fontPixel(16), color: '#FFECD0', }}>
+
+                        New Here?  </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('signUp')} style={{ display: 'flex', }} >
+                        <Text style={{ fontFamily: 'Nunito-Bold', fontSize: fontPixel(16), color: '#FFECD0', textAlign: 'center', }}>Register</Text>
+                    </TouchableOpacity>
+
+                </View>
+                <TouchableOpacity onPress={() => createUser()} style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
+                    <Text style={{ color: '#372329', fontSize: fontPixel(24), textAlign: 'center', }}>Login</Text>
+                </TouchableOpacity>
+            </View>
+
+        </View>
+
 
     )
 }
@@ -177,59 +177,5 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-
-
-
-
- // function onAuthStateChanged(user) {
-    //     setUser(user);
-    //     navigation.navigate('List')
-    //     if (initializing) setInitializing(false);
-    // }
-    // useEffect(() => {
-    //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    //     return subscriber;
-    // }, []);
-    // if (initializing) return null;
-    // if (!user) {
-    //     return (
-    //         <View>
-    //             <Text>Login</Text>
-    //         </View>
-    //     );
-    // }
-
-
-
-
-
-
-//   // auth()
-//             //     .signInWithEmailAndPassword(values.email, values.password)
-//             //     .then(() => {
-//             //         console.log('User account created & signed in!');
-//             //         navigation.navigate('List')
-//             //     })
-//             //     .catch(error => {
-//             //         if (error.code === 'auth/email-already-in-use') {
-//             //             console.log('That email address is already in use!');
-//             //         }
-
-//             //         if (error.code === 'auth/invalid-email') {
-//             //             console.log('That email address is invalid!');
-//             //         }
-
-//             //         Alert.alert(
-//             //             'Error',
-//             //             error.message, // Assuming `error` has a `message` property
-//             //             [
-//             //                 { text: 'OK', onPress: () => console.log('OK Pressed') } // You can customize the button text and add onPress handler if needed
-//             //             ],
-//             //             { cancelable: false }
-//             //         );
-//             //     });
 
 

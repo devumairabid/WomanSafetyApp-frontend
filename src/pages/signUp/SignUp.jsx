@@ -1,14 +1,14 @@
-import { Image, StatusBar, StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { Image, StatusBar, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../responsiveness/Responsiveness';
-const SignUp = ({ navigation }) => {
+const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
 
-    const navigate = useNavigation()
+    const navigation = useNavigation()
     const [values, setValues] = useState({
         fullName: "",
         email: "",
@@ -25,8 +25,8 @@ const SignUp = ({ navigation }) => {
                 navigation.navigate('TabNavigation')
 
             }
-        } catch (e) {
-            console.log(e, 'token ni h');
+        } catch (error) {
+            (error, error.message);
         }
     };
 
@@ -62,20 +62,21 @@ const SignUp = ({ navigation }) => {
         if (validate()) {
             try {
                 const response = await axios.post('https://womansafetyapp-production.up.railway.app/auth/signUp', values);
-                navigation.navigate('TabNavigation')
-                console.log(response.data, 'response data successfully')
-                await AsyncStorage.setItem('token', response.data.token);
-                await AsyncStorage.setItem('name', response.data.fullName);
-                await AsyncStorage.setItem('email', response.data.email);
-                console.log('token signUp successfully');
                 setValues({
                     fullName: "",
                     email: "",
                     password: ""
                 });
 
+                await AsyncStorage.setItem('token', response.data.token);
+                await AsyncStorage.setItem('name', response.data.fullName);
+                await AsyncStorage.setItem('email', response.data.email);
+                navigation.navigate('TabNavigation')
+
+
+
             } catch (error) {
-                console.error(error);
+                (error, error.message);
             }
         }
 
@@ -87,85 +88,90 @@ const SignUp = ({ navigation }) => {
     }
     return (
 
-        <>
-            {/* <ScrollView> */}
 
-            <ScrollView style={{ flex: 1, backgroundColor: '#FF3974' }}>
-                <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={'dark-content'} />
-                <View style={{ flex: 0.9 }} showsVerticalScrollIndicator={false}>
-                    <Image source={require('../../assets/images/Signup.png')} />
+        <View style={{ flex: 1, backgroundColor: '#FF3974' }}>
+
+            <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={'dark-content'} />
+
+            <View style={{ flex: 0.8, }}>
+
+                <Image source={require('../../assets/images/curve.png')} style={{ width: '100%', resizeMode: 'stretch', height: '100%' }} />
+            </View>
+
+
+            <ScrollView style={{ flex: 1.7, marginLeft: pixelSizeHorizontal(23), marginRight: pixelSizeHorizontal(30), }} showsVerticalScrollIndicator={false} >
+                <Text style={{ fontSize: fontPixel(36), fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Register</Text>
+                <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 3, marginTop: pixelSizeVertical(20) }}>
+                    <Text style={{ color: '#FFECD0' }}>Full Name</Text>
+                    <TextInput
+                        value={values.fullName}
+                        keyboardType='default'
+                        color='#FFECD0'
+                        onChangeText={(event) => setValues((prev) => ({ ...prev, fullName: event }))}
+                        style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(45), width: widthPixel(309) }}
+                    />
+
+                    {errors.fullName && <Text >{errors.fullName}</Text>}
                 </View>
-                <View style={{ flex: 1.26, marginLeft: pixelSizeHorizontal(23), marginRight: pixelSizeHorizontal(30), }}>
-                    <Text style={{ fontSize: fontPixel(36), fontFamily: 'Nunito-Bold', color: '#FFECD0' }}>Register</Text>
-                    <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
-                        <Text style={{ color: '#FFECD0' }}>Full Name</Text>
+
+                <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 3, marginTop: pixelSizeVertical(20) }}>
+                    <Text style={{ color: '#FFECD0' }}>Email</Text>
+
+                    <TextInput keyboardType='email-address' value={values.email} color='#FFECD0'
+                        onChangeText={(event) => setValues((prev) => ({ ...prev, email: event }))} style={{
+                            borderWidth: 1, borderRadius: 10,
+                            borderColor: '#FFECD0', height: heightPixel(45), width: widthPixel(309)
+                        }} />
+                    {errors.email && <Text >{errors.email}</Text>}
+                </View>
+                <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 3, marginTop: pixelSizeVertical(20) }}>
+                    <Text style={{ color: '#FFECD0' }}>Password</Text>
+                    <View style={{ position: 'relative' }}>
                         <TextInput
-                            value={values.fullName}
-                            keyboardType='default'
-                            color='#FFECD0'
-                            onChangeText={(event) => setValues((prev) => ({ ...prev, fullName: event }))}
-                            style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309) }}
+                            secureTextEntry={!showPassword}
+                            color="#FFECD0"
+                            value={values.password}
+                            onChangeText={(event) => setValues((prev) => ({ ...prev, password: event }))}
+                            style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(45), width: widthPixel(309) }}
                         />
-
-                        {errors.fullName && <Text >{errors.fullName}</Text>}
+                        {errors.password && <Text style={{ color: '#372329', }}>{errors.password}</Text>}
+                        <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: pixelSizeHorizontal(20), top: pixelSizeVertical(4) }}>
+                            <Icon name={showPassword ? 'eye' : 'eye-off'} size={25} color="#FFECD0" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 3, marginTop: pixelSizeVertical(25) }}>
+                    <View >
+                        <Image source={require('../../assets/images/google.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
+                    </View>
+                    <View>
+                        <Image source={require('../../assets/images/fb.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                     </View>
 
-                    <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
-                        <Text style={{ color: '#FFECD0' }}>Email</Text>
-
-                        <TextInput keyboardType='email-address' value={values.email} color='#FFECD0'
-                            onChangeText={(event) => setValues((prev) => ({ ...prev, email: event }))} style={{
-                                borderWidth: 1, borderRadius: 10,
-                                borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309)
-                            }} />
-                        {errors.email && <Text >{errors.email}</Text>}
+                    <View>
+                        <Image source={require('../../assets/images/apple.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
                     </View>
-                    <View style={{ marginLeft: pixelSizeHorizontal(8), gap: 7, marginTop: pixelSizeVertical(20) }}>
-                        <Text style={{ color: '#FFECD0' }}>Password</Text>
-                        <View style={{ position: 'relative' }}>
-                            <TextInput
-                                secureTextEntry={!showPassword}
-                                color="#FFECD0"
-                                value={values.password}
-                                onChangeText={(event) => setValues((prev) => ({ ...prev, password: event }))}
-                                style={{ borderWidth: 1, borderRadius: 10, borderColor: '#FFECD0', height: heightPixel(40), width: widthPixel(309) }}
-                            />
-                            {errors.password && <Text style={{ color: '#372329', }}>{errors.password}</Text>}
-                            <TouchableOpacity onPress={passwordHandler} style={{ position: 'absolute', right: pixelSizeHorizontal(20), top: pixelSizeHorizontal(7) }}>
-                                <Icon name={showPassword ? 'eye' : 'eye-off'} size={25} color="#FFECD0" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 3, marginTop: 5 }}>
-                        <View >
-                            <Image source={require('../../assets/images/google.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-                        <View>
-                            <Image source={require('../../assets/images/fb.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-
-                        <View>
-                            <Image source={require('../../assets/images/apple.png')} style={{ width: widthPixel(55), height: heightPixel(55) }} />
-                        </View>
-                    </View>
-                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: pixelSizeHorizontal(8) }}>
-                            <Text style={{ fontFamily: 'Nunito-Normal', fontSize: fontPixel(16), color: '#FFECD0', textAlignVertical: 'bottom' }}>
-                                Already Member?  </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('login')} style={{ display: 'flex', flexDirection: 'column-reverse' }} >
-                                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: fontPixel(16), color: '#FFECD0', textAlign: 'center', }}>Login</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
-                            <TouchableOpacity onPress={createUser} style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
-                                <Text style={{ color: '#372329', fontSize: fontPixel(24), textAlign: 'center' }}>Register</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View  >
-            </ScrollView>
+                </View>
+            </ScrollView  >
+            <View style={{ flex: 0.3, display: 'flex', marginLeft: pixelSizeHorizontal(23), justifyContent: 'center', marginRight: pixelSizeHorizontal(30), flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ display: 'flex', flexDirection: 'row', marginLeft: pixelSizeHorizontal(8), marginTop: pixelSizeVertical(18) }}>
+                    <Text style={{ fontFamily: 'Nunito-Normal', fontSize: fontPixel(16), color: '#FFECD0', }}>
+                        Already Member?  </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('login')} style={{ display: 'flex', }} >
+                        <Text style={{ fontFamily: 'Nunito-Bold', fontSize: fontPixel(16), color: '#FFECD0', textAlign: 'center', }}>Login</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', borderRadius: 7 }, styles.Login]}>
+                    <TouchableOpacity onPress={createUser} style={[{ width: widthPixel(144), height: heightPixel(60), backgroundColor: '#FFECD0', justifyContent: 'center', borderRadius: 7 }, styles.Login]}>
+                        <Text style={{ color: '#372329', fontSize: fontPixel(24), textAlign: 'center' }}>Register</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
             {/* </ScrollView> */}
-        </>
+
+
+        </View>
+
 
     )
 }
@@ -206,63 +212,3 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-{/* <Text>Welcome {user.email}</Text> */ }
-
-    // const [initializing, setInitializing] = useState(true);
-    // const [user, setUser] = useState();
-
-
-
-// const response = await axios.post('https://womansafetyapp-production.up.railway.app/test',{k:'ml'});
-
-
-// function onAuthStateChanged(user) {
-    //     setUser(user);
-    //     navigation.navigate('List')
-    //     if (initializing) setInitializing(false);
-    // }
-    // useEffect(() => {
-    //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    //     return subscriber;
-    // }, []);
-    // if (initializing) return null;
-    // if (!user) {
-    //     return (
-    //         <View>
-    //             <Text>Login</Text>
-    //         </View>
-    //     );
-    // }
-
-
-
-
-
-
-
-
-
-    // if (validate()) {
-        //     auth()
-        //         .createUserWithEmailAndPassword(values.email, values.password)
-        //         .then(() => {
-        //             console.log('User account created & signed in!');
-        //             navigation.navigate('List')
-        //             setValues('')
-        //         })
-
-        //         .catch(error => {
-        //             if (error.code === 'auth/email-already-in-use') {
-        //                 console.log('That email address is already in use!');
-        //             }
-
-        //             if (error.code === 'auth/invalid-email') {
-        //                 console.log('That email address is invalid!');
-        //             }
-
-        //             console.error(error);
-        //         });
-        // }

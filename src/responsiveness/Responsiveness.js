@@ -3,7 +3,7 @@ const {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT
 } = Dimensions.get('window');
-console.log(SCREEN_HEIGHT)
+(SCREEN_HEIGHT)
 const widthBaseScale = SCREEN_WIDTH / 375;
 const heightBaseScale = SCREEN_HEIGHT / 812;
 

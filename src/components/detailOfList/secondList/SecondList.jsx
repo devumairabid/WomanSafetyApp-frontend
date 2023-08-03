@@ -10,7 +10,7 @@ const SecondList = ({ navigation, route }) => {
         try {
             if (mesage) {
                 const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: mesage })
-                console.log('response', response.data.discription);
+                    ('response', response.data.discription);
                 setMesage('')
 
 
@@ -27,7 +27,7 @@ const SecondList = ({ navigation, route }) => {
                 });
             }
         } catch (error) {
-            console.log(error.message);
+            (error.message);
         }
     }
     return (

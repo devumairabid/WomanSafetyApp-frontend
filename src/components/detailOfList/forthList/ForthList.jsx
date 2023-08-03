@@ -4,36 +4,34 @@ import Toast from 'react-native-toast-message';
 import axios from 'axios'
 import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../../responsiveness/Responsiveness';
 const ForthList = ({ navigation, route }) => {
-    const [mesage, setMesage] = useState('')
+    const [message, setMessage] = useState('')
     const { myText } = route.params
     const send_message = async () => {
         try {
-            if (mesage) {
-                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: mesage })
-                    ('response', response.data.discription);
-                setMesage('')
+            if (message) {
+                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: message });
 
+                setMessage('');
 
                 Toast.show({
                     type: 'success',
-
                     text1: 'Message Sent 👋'
                 });
             } else {
                 Toast.show({
                     type: 'error',
-
                     text1: 'Please enter a message'
                 });
             }
         } catch (error) {
             Toast.show({
                 type: 'error',
-
-                text1: 'Please enter a message'
+                text1: 'An error occurred'
             });
         }
     }
+
+
     return (
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#FFECD0' }}>
             <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: pixelSizeVertical(30), }}>
@@ -57,7 +55,7 @@ const ForthList = ({ navigation, route }) => {
                 <Text style={{ color: '#372329', fontSize: fontPixel(23), fontFamily: 'Nunito-Normal' }}>Message</Text>
                 <View style={{ flex: 0.9, borderWidth: 1, borderRadius: 10, borderColor: 'white', backgroundColor: 'white' }}>
 
-                    <TextInput value={mesage} onChangeText={txt => setMesage(txt)} style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Normal', marginHorizontal: pixelSizeHorizontal(20) }} multiline={true} />
+                    <TextInput value={message} onChangeText={txt => setMessage(txt)} style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Normal', marginHorizontal: pixelSizeHorizontal(20) }} multiline={true} />
                 </View>
             </View>
             <View style={{

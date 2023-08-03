@@ -9,31 +9,28 @@ const ThirdList = ({ navigation, route }) => {
     const send_message = async () => {
         try {
             if (mesage) {
-                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: mesage })
-                    ('response', response.data.discription);
-                setMesage('')
+                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: mesage });
 
+                setMesage('');
 
                 Toast.show({
                     type: 'success',
-
                     text1: 'Message Sent 👋'
                 });
             } else {
                 Toast.show({
                     type: 'error',
-
                     text1: 'Please enter a message'
                 });
             }
         } catch (error) {
             Toast.show({
                 type: 'error',
-
-                text1: 'Please enter a message'
+                text1: 'An error occurred'
             });
         }
     }
+
     return (
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#FFECD0' }}>
             <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: pixelSizeVertical(30), }}>

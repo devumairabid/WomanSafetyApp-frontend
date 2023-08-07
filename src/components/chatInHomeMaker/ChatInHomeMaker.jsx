@@ -35,7 +35,7 @@ const ChatInHomeMaker = () => {
     }
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ backgroundColor: '#FFECD0', flex: 1 }}>
             <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: pixelSizeVertical(30), }}>
 
 
@@ -54,7 +54,7 @@ const ChatInHomeMaker = () => {
             <View style={{ flex: 0.1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute', bottom: pixelSizeVertical(15) }}>
 
                 <TextInput
-                    placeholder='Enter Message' style={{ width: '80%', borderWidth: 1, borderRadius: 10 }}
+                    placeholder='Enter Message' style={{ width: '80%', backgroundColor: 'white', borderWidth: 1, borderRadius: 10 }}
                     onChangeText={text => setMessage(text)} value={message}
                 />
 

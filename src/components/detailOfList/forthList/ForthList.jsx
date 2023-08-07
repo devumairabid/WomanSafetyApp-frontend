@@ -4,15 +4,25 @@ import Toast from 'react-native-toast-message';
 import axios from 'axios'
 import { fontPixel, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '../../../responsiveness/Responsiveness';
 const ForthList = ({ navigation, route }) => {
-    const [message, setMessage] = useState('')
+    const [mesage, setMesage] = useState('')
+
+    const [createdAt, setCreatedAt] = useState(null);
     const { myText } = route.params
     const send_message = async () => {
         try {
-            if (message) {
-                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: message });
 
-                setMessage('');
+            const newMessage = {
+                text: mesage,
+                createdAt: new Date(),
+            };
+            setCreatedAt(newMessage.createdAt);
+            if (mesage) {
+                const response = await axios.post('https://womansafetyapp-production.up.railway.app/message/discription', { discription: mesage });
+                setTimeout(() => {
+                    setCreatedAt('');
+                }, 3000);
 
+                setMesage('');
                 Toast.show({
                     type: 'success',
                     text1: 'Message Sent 👋'
@@ -31,7 +41,6 @@ const ForthList = ({ navigation, route }) => {
         }
     }
 
-
     return (
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#FFECD0' }}>
             <View style={{ flex: 0.1, display: 'flex', flexDirection: 'column', marginTop: pixelSizeVertical(30), }}>
@@ -46,16 +55,22 @@ const ForthList = ({ navigation, route }) => {
                 borderWidth: 1, borderRadius: 10, borderColor: 'white', display: 'flex', flexDirection: 'row',
                 justifyContent: 'space-around', backgroundColor: 'white', marginHorizontal: pixelSizeHorizontal(20), marginTop: pixelSizeVertical(30), alignItems: 'center'
             }}>
+
                 <Text style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Normal' }}>
                     {myText}
                 </Text>
                 <Image source={require('../../../assets/images/location.png')} style={{ width: widthPixel(18), height: heightPixel(25) }} />
             </View>
             <View style={{ flex: 0.8, marginHorizontal: pixelSizeHorizontal(20), marginTop: pixelSizeVertical(50) }}>
+                {createdAt && (
+                    <Text style={{ marginTop: 2, color: 'black', }}>
+                        Message sent at: {createdAt.toLocaleString()}
+                    </Text>
+                )}
                 <Text style={{ color: '#372329', fontSize: fontPixel(23), fontFamily: 'Nunito-Normal' }}>Message</Text>
                 <View style={{ flex: 0.9, borderWidth: 1, borderRadius: 10, borderColor: 'white', backgroundColor: 'white' }}>
 
-                    <TextInput value={message} onChangeText={txt => setMessage(txt)} style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Normal', marginHorizontal: pixelSizeHorizontal(20) }} multiline={true} />
+                    <TextInput value={mesage} onChangeText={text => setMesage(text)} style={{ color: '#372329', fontSize: fontPixel(18), fontFamily: 'Nunito-Normal', marginHorizontal: pixelSizeHorizontal(20) }} multiline={true} />
                 </View>
             </View>
             <View style={{

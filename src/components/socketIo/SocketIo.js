@@ -15,11 +15,11 @@ class WSService {
             });
 
             this.socket.on('connect', () => {
-                console.log('Socket connected');
+                // console.log('Socket connected');
             });
 
             this.socket.on('disconnect', () => {
-                console.log('Socket disconnected');
+                // console.log('Socket disconnected');
             });
 
             this.socket.on('error', (error) => {
